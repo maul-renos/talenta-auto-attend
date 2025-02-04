@@ -1,37 +1,37 @@
-name: Check-in
+# name: Check-in
 
-on:
-  schedule:
-    - cron: "0 0 * * 1-5"  # Runs every weekday at 08:00 (UTC+7)
-  workflow_dispatch:
+# on:
+#   schedule:
+#     - cron: "0 0 * * 1-5"  # Runs every weekday at 08:00 (UTC+7)
+#   workflow_dispatch:
 
-jobs:
-  check-in:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+# jobs:
+#   check-in:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
+#       - name: Setup Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: '3.9'
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          playwright install
+#       - name: Install dependencies
+#         run: |
+#           pip install -r requirements.txt
+#           playwright install
 
-      - name: Debug - List Files
-        run: ls -R
+#       - name: Debug - List Files
+#         run: ls -R
 
-      - name: Run Python script
-        run: python main.py
-        env:
-          ACCOUNT_EMAIL: ${{ secrets.ACCOUNT_EMAIL }}
-          ACCOUNT_PASSWORD: ${{ secrets.ACCOUNT_PASSWORD }}
-          GEO_LATITUDE: ${{ secrets.GEO_LATITUDE }}
-          GEO_LONGITUDE: ${{ secrets.GEO_LONGITUDE }}
-          ONSITE_GEO_LATITUDE: ${{ secrets.ONSITE_GEO_LATITUDE }}
-          ONSITE_GEO_LONGITUDE: ${{ secrets.ONSITE_GEO_LONGITUDE }}
-          CHECK_TYPE: CHECK_IN
+#       - name: Run Python script
+#         run: python main.py
+#         env:
+#           ACCOUNT_EMAIL: ${{ secrets.ACCOUNT_EMAIL }}
+#           ACCOUNT_PASSWORD: ${{ secrets.ACCOUNT_PASSWORD }}
+#           GEO_LATITUDE: ${{ secrets.GEO_LATITUDE }}
+#           GEO_LONGITUDE: ${{ secrets.GEO_LONGITUDE }}
+#           ONSITE_GEO_LATITUDE: ${{ secrets.ONSITE_GEO_LATITUDE }}
+#           ONSITE_GEO_LONGITUDE: ${{ secrets.ONSITE_GEO_LONGITUDE }}
+#           CHECK_TYPE: CHECK_IN

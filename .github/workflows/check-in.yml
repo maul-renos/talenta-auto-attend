@@ -1,0 +1,35 @@
+name: Check-out
+
+on:
+  schedule:
+    - cron: "0 0 * * 1-5"  # Menjalankan setiap hari kerja (Senin - Jumat) pukul 07:00 WIB (UTC+7)
+  workflow_dispatch:
+
+jobs:
+  check-out:
+    env:
+      ACCOUNT_EMAIL: ${{ vars.ACCOUNT_EMAIL }}
+      ACCOUNT_PASSWORD: ${{ secrets.ACCOUNT_PASSWORD }}
+      GEO_LATITUDE: ${{ secrets.GEO_LATITUDE }}
+      GEO_LONGITUDE: ${{ secrets.GEO_LONGITUDE }}
+      ONSITE_GEO_LATITUDE: ${{ secrets.ONSITE_GEO_LATITUDE }}
+      ONSITE_GEO_LONGITUDE: ${{ secrets.ONSITE_GEO_LONGITUDE }}
+      CHECK_TYPE: "CHECK_OUT"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install chromium
+
+      - name: Run Check-in Script
+        run: python script.py
